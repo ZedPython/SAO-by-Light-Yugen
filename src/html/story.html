@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DedalusWeb Story</title>
+
+    <script src="https://olado.github.io/doT/doT.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="../dedalus.js"></script>
+    <script src="../dedalus-web.js"></script>
+    <script src="../music.js"></script>
+
+    <link rel="stylesheet" href="themes/plain/story.css">
+
+ </head>
+<body>
+    <div id="story">
+
+        <initscript>
+        </initscript>
+
+        <beforeEveryThing>
+        </beforeEveryThing>
+
+        <beforeEveryPageTurn>
+        </beforeEveryPageTurn>
+
+        <beforeEveryParagraphShown>
+        </beforeEveryParagraphShown>
+
+        <afterEveryThing>
+        </afterEveryThing>
+
+        <afterEveryPageTurn>
+        </afterEveryPageTurn>
+
+        <afterEveryParagraphShown>
+        </afterEveryParagraphShown>
+
+        <!-- Novel -->
+        <title>Sword Art Online by Light Yugen</title>
+
+        <!-- Objects -->
+        <obj id="dummyObject" inventoryName="An object">
+            <action id="Examine">
+                Something happens... who knows what?!
+            </action>
+
+            <action id="Get">
+                <when>!story.isInInventory('dummyObject')</when>
+                As you try to get it... It is clear that the inventory works!
+                {{ story.putInInventory('dummyObject'); }}
+            </action>
+
+        </obj>
+
+        <!-- Pages -->
+        <page id="intro">
+            The world of Sword Art Online is an interesting and amazing place,
+
+for people that want to explore every inch of the floor, for seeking explorers going deep in unknown dungeons, to brave swordsmen fighting for honor!
+
+How long will you survive in Sword Art Online? 
+			
+        </page>
+
+		<page id="enter" class="first">
+        	<p id="enter">Taking a deep breathe, you <turn to="main">put on your nervegear!</turn></p>
+        
+		</page>
+		
+        <page id="main">
+        	<img src="images/aincrad.jpg" alt="Smiley face" height="auto" width="900">
+        	Welcome new player, you are about to embark on probably the most epic journey across the Aincread realm.
+        	The SAO players must beat all 100 floors of this steel castle, if they wish to be free. 
+        	On the right hand side is the inventory for whatever precious items you may find, certain items have actives which may be helpful.
+        	Luckily we didn't disable the log out button and saving the game is possible in the lower right corner.
+
+        	Spawn into the game?
+
+
+        	
+        	<p id="main">Taking a deep breathe you <turn to="2">enter the game</turn></p>
+        	<p id="main">You decide to return to the <turn to="enter">main menu</turn></p>
+
+        		
+        </page>
+        <page id="2">
+        	Welcome to Sword Art Online!
+
+You spawn on floor 1:Beginners' Floor
+
+You are given clothes and a wooden sword.
+
+Where do you go?
+        	<p id="2">Visit the <turn to="dummyPage">tavern</turn></p>
+        	<p id="2">Enter the <turn to="dummyPage">forest</turn></p>
+
+        		
+        </page>
+
+
+        <page id="dummyPage">
+            You are in an empty page except for a <show paragraph="dummyParagraph">paragraph</show>.
+
+            <p>Quite unsurprisingly, there is even an <interact with="dummyObject">object</interact> lying around.</p>
+
+            <p>Looking around with more attention, you notice <turn to="otherPage">another page</turn></p>
+
+            <paragraph id="dummyParagraph">
+                Seiously, What did you expect?
+            </paragraph>
+        </page>
+
+        <page id="otherPage">
+            Plot twist! The story ends abruptly.
+            {{ story.endGame(); }}
+        </page>
+
+    </div>
+
+    <!-- health bar self put in -->
+    <div id=health>
+    	<strong>Health:</strong>
+    	<progress id="health" value="100" max="100"></progress>
+	</div>
+    <div id="wrapper">
+        <div id="title"></div>
+
+        <div id="inventoryHostWrapper">
+            <h2>Inventory</h2>
+            <div id="inventoryHost"></div>
+        </div>
+
+        <div id="host"></div>
+    </div>
+
+    <div id="interactionHost"></div>
+
+    <div id="undoStageHost"></div>
+
+    <div id="footer">
+        <a id="undoHost" href="#">Undo</a> &bull; <a id="saveHost" href="#">Save</a> &bull; <a id="restoreHost" href="#">Restore</a> &bull; <a id="resetHost" href="#">Reset</a>
+    </div>
+
+    <script>
+        $(function () {
+            new DedalusWeb({
+                domSource         : $('#story'),
+                domTarget         : $('#host'),
+                titleTarget       : $('#title'),
+                inventoryTarget   : $('#inventoryHost'),
+                interactionTarget : $('#interactionHost'),
+                undoTarget        : $('#undoHost'),
+                undoStageTarget   : $('#undoStageHost'),
+                saveTarget        : $('#saveHost'),
+                restoreTarget     : $('#restoreHost'),
+                resetTarget       : $('#resetHost'),
+            });
+        });
+
+    </script>
+</body>
+</html>
